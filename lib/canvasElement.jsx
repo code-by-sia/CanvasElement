@@ -9,6 +9,8 @@ class CanvasElement{
 		this.elements = [];
 		this._hitting=0;
 		this.selectedElement = null;
+		this.deltaX=0;
+		this.deltaY=0;
 	}
 
 	insertElement(elemet){
@@ -84,6 +86,8 @@ class CanvasElement{
 			if(element.hitTest(x,y)){
 				element.selected=true;
 				this.selected=element;
+				this.deltaX=element.x - x;
+				this.deltaY=element.y - y;
 				break;
 			}
 		}
@@ -92,14 +96,16 @@ class CanvasElement{
 
 	hitting(x,y,control,shift,alt,meta){
 		console.log('hit continues..');
+		if(this.selected){
+			this.selected.x = x + this.deltaX;
+			this.selected.y = y + this.deltaY;
+			this.repaint();
+		}
 	}
 
 	hitEnd(x,y,control,shift,alt,meta){
 		console.log('hit done');
 	}
-
-
-
 
 }
 
