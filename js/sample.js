@@ -11,7 +11,8 @@ $(document).ready(function(){
 	window.canvasEl= new CanvasElement(el);
 
 	$('#btnTest').click(function(){
-		var rect = new Rectangle(random(0,400),random(0,500),random(100,300),random(100,200),randomColor(),randomColor());
+		var rect = new Rectangle(random(0,400),random(0,300),random(100,150),random(100,200),randomColor(),randomColor());
+		rect.angle = random(0,360);
 		canvasEl.insertElement(rect);
 	});
 

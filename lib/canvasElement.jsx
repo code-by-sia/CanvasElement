@@ -124,6 +124,7 @@ class DrawableElement {
 		this.fill=fill;
 		this.stroke=stroke;
 		this.selected = false;
+		this.angle = 0;
 	}
 
 	setPainter(painter){
@@ -134,14 +135,18 @@ class DrawableElement {
 		x-=this.x;
 		y-=this.y;
 
-		return (x>0 && y>0 && x<this.width && y < this.height);
+		let teta = this.angle * Math.PI / 180;
+        let rx = x * Math.cos(-teta) - y * Math.sin(-teta);
+        let ry = x * Math.sin(-teta) + y * Math.cos(-teta);
+
+		return (rx>0 && ry>0 && rx<this.width && ry < this.height);
 	}
 
 	paint(){
 		let context = this.painter.context;
 		context.setTransform(1, 0, 0, 1, 0, 0);
 		context.translate(this.x, this.y);
-
+		if(this.angle != 0)context.rotate(this.angle * Math.PI / 180);
 		context.fillStyle= this.fill;
 		context.strokeStyle= this.stroke;
 		
