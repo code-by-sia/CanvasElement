@@ -33,7 +33,9 @@ class CanvasElement{
 
 	repaint(){
 		let context=this.context;
-		context.clearRect(0,0,this.width,this.height);
+
+		
+
 		if(this.backgroundColor){
 			context.fillStyle = this.backgroundColor;
 			context.fillRect(0,0,this.width,this.height);
@@ -41,6 +43,12 @@ class CanvasElement{
 		if (this.backgroundImage) {
 			context.drawImage(this.backgroundImage,0,0,this.width,this.height);
 		}
+
+		context.clearRect(0, 0, this.width, this.height);
+		context.save();
+		context.setTransform(1, 0, 0, 1, 0, 0);
+		context.clearRect(0, 0, this.width, this.height);
+		context.restore();
 		
 		this.EachElement(function (element) {
 			element.paint();
