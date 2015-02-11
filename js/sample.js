@@ -18,5 +18,19 @@ $(document).ready(function(){
 	$('#btnRepaint').click(function () {
 		canvasEl.repaint();
 	});
+
+	$(el).mouseup(function (evt) {
+		var x = evt.offsetX || evt.layerX || (evt.clientX - el.offsetLeft);
+        var y = evt.offsetY || evt.layerY || (evt.clientY - el.offsetTop);
+		canvasEl.hit(x,y,3,evt.controlKey,evt.shiftKey,evt.altKey,evt.metaKey);
+	}).mousedown(function (evt) {
+		var x = evt.offsetX || evt.layerX || (evt.clientX - el.offsetLeft);
+        var y = evt.offsetY || evt.layerY || (evt.clientY - el.offsetTop);
+		canvasEl.hit(x,y,1,evt.controlKey,evt.shiftKey,evt.altKey,evt.metaKey);
+	}).mousemove(function (evt) {
+		var x = evt.offsetX || evt.layerX || (evt.clientX - el.offsetLeft);
+        var y = evt.offsetY || evt.layerY || (evt.clientY - el.offsetTop);
+		canvasEl.hit(x,y,2,evt.controlKey,evt.shiftKey,evt.altKey,evt.metaKey);
+	});
 	
 });
