@@ -1,0 +1,33 @@
+@import 'reset';
+
+// Colors 
+$light : #f8f8f8;
+$lightGray: #cccccc;
+
+// Sizes 
+$width :600px;
+$canvasHeight:400px;
+
+// Style 
+body {
+	background:$light;
+}
+
+div.wrapper {
+	width:$width;
+	margin:10px auto;
+	
+	canvas {
+		background: white;
+		width: $width;
+		height: $canvasHeight;
+		border:solid thin $lightGray;
+	}
+}
+
+button {
+	background:white;
+	padding:5px;
+	border:solid thin $lightGray;
+}
+
