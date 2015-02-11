@@ -31,6 +31,10 @@ $(document).ready(function(){
 		var x = evt.offsetX || evt.layerX || (evt.clientX - el.offsetLeft);
         var y = evt.offsetY || evt.layerY || (evt.clientY - el.offsetTop);
 		canvasEl.hit(x,y,2,evt.controlKey,evt.shiftKey,evt.altKey,evt.metaKey);
+	}).dblclick(function (evt) {
+		if(canvasEl.selected){
+			canvasEl.selected.bringToFront();
+		}
 	});
 	
 });

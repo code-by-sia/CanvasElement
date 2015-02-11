@@ -19,6 +19,12 @@ class CanvasElement{
 		this.repaint();
 	}
 
+	removeElement(element){
+		let index = this.elements.indexOf(element);
+        if (index > -1) this.elements.splice(index, 1);
+        this.repaint();
+	}
+
 	EachElement(callback){
 		if(!callback)return;
 		for (let i = 0; i < this.elements.length; i++) {
@@ -153,6 +159,43 @@ class DrawableElement {
 		context.strokeStyle = "";
 		context.fillStyle = "";
 	}
+
+
+    sendToBack(){
+        let elements = this.painter.elements;
+        for (let i = 0; i <elements.length;i++) {
+            let prevelement = elements[i]
+            i++; if (i >= elements.length) break;
+            let element = elements[i];
+      
+            if (element == this) {
+                elements[i] = prevelement;
+                elements[i - 1] = element;
+                this.painter.repaint();
+                break;
+            }
+        }; 
+    }
+    
+    bringToFront(){
+        let elements = this.painter.elements;
+        for (let i = elements.length - 1; i >= 0;) {
+            let prevelement = elements[i]
+            i--; if (i < 0) break;
+            let element = elements[i];
+      
+            if (element == this) {
+                elements[i] = prevelement;
+                elements[i + 1] = element;
+                this.painter.repaint();
+                break;
+            }
+        };    
+    }
+    
+    remove(){
+        this.painter.removeElement(this);
+    }
 
 }
 
