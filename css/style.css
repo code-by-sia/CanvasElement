@@ -12,7 +12,6 @@ div.wrapper {
 div.wrapper canvas {
   width: 600px;
   height: 400px;
-  background: white;
   border: solid thin #cccccc;
 }
 button {

@@ -1,4 +1,0 @@
-class CanvasElement{
-	constructor(){
-	}
-}
