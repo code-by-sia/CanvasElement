@@ -124,10 +124,21 @@ class CanvasElement{
 				let teta = Math.atan2(dy,dx) + Math.PI/2;
 				let tetaInDegree = teta * 180 / Math.PI;
 				selected.angle = tetaInDegree;
+
+				if(!control){
+					let distanse = Math.sqrt(Math.pow(dx,2)+Math.pow(dy,2));
+					let length = (distanse - CANVAS_ELEMENT_HANDLE_SIZE*1.5) * 2;
+					let rative = selected.height / selected.width;
+					selected.height =length;
+					if(!alt){
+						selected.width *= rative;
+					}
+				}
+
 				this.repaint();
 			}
 
-			if(control){
+			if(shift){
 				selected.x = Math.floor(selected.x /CANVAS_ELEMENT_GRID_SIZE) * CANVAS_ELEMENT_GRID_SIZE;
 				selected.y = Math.floor(selected.y /CANVAS_ELEMENT_GRID_SIZE) * CANVAS_ELEMENT_GRID_SIZE;
 				selected.angle = Math.floor(selected.angle /CANVAS_ELEMENT_GRID_SIZE) * CANVAS_ELEMENT_GRID_SIZE;
