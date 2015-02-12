@@ -21,11 +21,7 @@ $(document).ready(function(){
 	});
 
 	$('#btnSampleImg').click(function(){
-		var img = $('<img src="img/sample.jpg" />');
-		img.load(function(){
-			var m = new Picture(250,200,400,300,this);
-			canvasEl.insertElement(m);
-		});
+		$('#file1').click();
 	});
 
 	$('#btnBringToFront').click(function () {
@@ -45,6 +41,26 @@ $(document).ready(function(){
 			canvasEl.selected.shadowColor='#000';
 			canvasEl.repaint();
 		}
+	});
+
+	$('#file1').change(function(e){
+		for (var i = this.files.length - 1; i >= 0; i--) {
+			var file = this.files[i];
+
+			var img = new Image;
+			img.src = URL.createObjectURL(file);
+			img.onload = function() {
+				var w= this.width;
+				var h=this.height;
+				if(w>300){ 
+					r=w/300;
+					w=w/r;
+					h=h/r;
+				}
+			    var m = new Picture(200,200,w,h,this);
+				canvasEl.insertElement(m);
+			}
+		};
 	});
 
 	$(el).mouseup(function (evt) {
