@@ -134,6 +134,7 @@ class DrawableElement {
 	}
 
 	hitTest(x,y){
+ 
 		x-=this.x;
 		y-=this.y;
 
@@ -141,7 +142,7 @@ class DrawableElement {
         let rx = x * Math.cos(-teta) - y * Math.sin(-teta);
         let ry = x * Math.sin(-teta) + y * Math.cos(-teta);
 
-		return (rx>0 && ry>0 && rx<this.width && ry < this.height);
+		return (rx>-this.width/2 && ry>-this.height/2 && rx<this.width/2 && ry < this.height/2);
 	}
 
 	paint(){
@@ -159,13 +160,15 @@ class DrawableElement {
 		let handleSize=CANVAS_ELEMENT_HANDLE_SIZE;
 		context.strokeStyle = 'rgba(0,0,0,.3)';
 		context.fillStyle = 'rgba(0,0,0,.8)';
-		context.strokeRect(-handleSize/2,-handleSize/2,this.width+handleSize,this.height+handleSize);
-		context.fillRect(-handleSize/2,-handleSize/2,handleSize,handleSize);
-		context.fillRect(this.width-handleSize/2,-handleSize/2,handleSize,handleSize);
-		context.fillRect(-handleSize/2,this.height-handleSize/2,handleSize,handleSize);
-		context.fillRect(this.width-handleSize/2,this.height-handleSize/2,handleSize,handleSize);
+		let x = -this.width /2;
+		let y = -this.height/2; 
+		context.strokeRect(x-handleSize/2,y-handleSize/2,this.width+handleSize,this.height+handleSize);
+		context.fillRect(x-handleSize/2,y-handleSize/2,handleSize,handleSize);
+		context.fillRect(x+this.width-handleSize/2,y-handleSize/2,handleSize,handleSize);
+		context.fillRect(x-handleSize/2,y+this.height-handleSize/2,handleSize,handleSize);
+		context.fillRect(x+this.width-handleSize/2,y+this.height-handleSize/2,handleSize,handleSize);
 
-		context.fillRect((this.width/2)-handleSize/2,-handleSize*1.5,handleSize,handleSize);		
+		context.fillRect(x+(this.width/2)-handleSize/2,y-handleSize*1.5,handleSize,handleSize);		
 
 
 		context.strokeStyle = "transparent";
@@ -220,8 +223,8 @@ class Rectangle extends DrawableElement {
 		super.paint();
 		let context = this.painter.context;
 		if(this.fill)
-			context.fillRect(0,0,this.width,this.height);
+			context.fillRect(-this.width/2,-this.height/2,this.width,this.height);
 		if(this.stroke)
-			context.strokeRect(0,0,this.width,this.height);
+			context.strokeRect(-this.width/2,-this.height/2,this.width,this.height);
 	}
 }
