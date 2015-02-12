@@ -23,7 +23,7 @@ $(document).ready(function(){
 	$('#btnSampleImg').click(function(){
 		var img = $('<img src="img/sample.jpg" />');
 		img.load(function(){
-			var m = new Picture(100,100,400,300,this);
+			var m = new Picture(250,200,400,300,this);
 			canvasEl.insertElement(m);
 		});
 	});
