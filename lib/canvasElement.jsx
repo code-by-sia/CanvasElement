@@ -128,10 +128,10 @@ class CanvasElement{
 				if(!control){
 					let distanse = Math.sqrt(Math.pow(dx,2)+Math.pow(dy,2));
 					let length = (distanse - CANVAS_ELEMENT_HANDLE_SIZE*1.5) * 2;
-					let rative = selected.height / selected.width;
+					let rative = selected.width / selected.height;
 					selected.height =length;
 					if(!alt){
-						selected.width *= rative;
+						selected.width = rative * length;
 					}
 				}
 
