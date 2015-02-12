@@ -154,15 +154,20 @@ class DrawableElement {
 
 	paintHandle(){
 		let context = this.painter.context;
-		context.strokeStyle = 'rgba(255,0,0,.5)';
-		context.fillStyle = 'rgba(255,0,0,.7)';
-		context.strokeRect(-5,-5,this.width+10,this.height+10);
-		context.fillRect(-5,-5,10,10);
-		context.fillRect(this.width-5,-5,10,10);
-		context.fillRect(-5,this.height-5,10,10);
-		context.fillRect(this.width-5,this.height-5,10,10);
-		context.strokeStyle = "";
-		context.fillStyle = "";
+		let handleSize=4;
+		context.strokeStyle = 'rgba(0,0,0,.3)';
+		context.fillStyle = 'rgba(0,0,0,.8)';
+		context.strokeRect(-handleSize/2,-handleSize/2,this.width+handleSize,this.height+handleSize);
+		context.fillRect(-handleSize/2,-handleSize/2,handleSize,handleSize);
+		context.fillRect(this.width-handleSize/2,-handleSize/2,handleSize,handleSize);
+		context.fillRect(-handleSize/2,this.height-handleSize/2,handleSize,handleSize);
+		context.fillRect(this.width-handleSize/2,this.height-handleSize/2,handleSize,handleSize);
+
+		context.fillRect((this.width/2)-handleSize/2,-handleSize*1.5,handleSize,handleSize);		
+
+
+		context.strokeStyle = "transparent";
+		context.fillStyle = "transparent";
 	}
 
 
