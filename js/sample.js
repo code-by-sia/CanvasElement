@@ -43,6 +43,13 @@ $(document).ready(function(){
 		}
 	});
 
+	$('#clrBack').change(function(){
+		if(canvasEl.selected){
+			canvasEl.selected.fill = this.value;
+			canvasEl.repaint();
+		}
+	});
+
 	$('#file1').change(function(e){
 		for (var i = this.files.length - 1; i >= 0; i--) {
 			var file = this.files[i];
