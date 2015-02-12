@@ -10,9 +10,12 @@ class CanvasElement{
 		this.backgroundImage = null;
 		this.elements = [];
 		this._hitting=0;
+		this._hitTest=null;
 		this.selectedElement = null;
 		this.deltaX=0;
 		this.deltaY=0;
+		this.hitX=0;
+		this.hitY=0;
 	}
 
 	insertElement(elemet){
@@ -77,6 +80,8 @@ class CanvasElement{
 				break;
 			case 2://mouse move
 				if(!this._hitting)return;
+				this.hitX = x;
+				this.hitY = y;
 				this.hitting(x,y,control,shift,alt,meta);
 				break;
 			case 3://mouse up
@@ -87,11 +92,12 @@ class CanvasElement{
 	}
 
 	hitStart(x,y,control,shift,alt,meta){
-		console.log('hit start');
 		this.clearSelection();
 		for (let i = this.elements.length-1; i >=0; i--) {
 			let element=this.elements[i];
-			if(element.hitTest(x,y)){
+			let test = element.hitTest(x,y);
+			this._hitTest = test;
+			if(test.ElementHitted || test.HandleHitted){
 				element.selected=true;
 				this.selected=element;
 				this.deltaX=element.x - x;
@@ -103,16 +109,26 @@ class CanvasElement{
 	}
 
 	hitting(x,y,control,shift,alt,meta){
-		console.log('hit continues..');
-		if(this.selected){
-			this.selected.x = x + this.deltaX;
-			this.selected.y = y + this.deltaY;
-			this.repaint();
+		if(this.selected && this._hitTest){
+			let test = this._hitTest;
+			if (test.ElementHitted) {
+				this.selected.x = x + this.deltaX;
+				this.selected.y = y + this.deltaY;
+				this.repaint();				
+			}else if(test.HandleHitted){
+				let dx = x - this.selected.x;
+				let dy = y - this.selected.y;
+
+				let teta = Math.atan2(dy,dx) + Math.PI/2;
+				let tetaInDegree = teta * 180 / Math.PI;
+				this.selected.angle = tetaInDegree;
+				this.repaint();
+			}
 		}
 	}
 
 	hitEnd(x,y,control,shift,alt,meta){
-		console.log('hit done');
+
 	}
 
 }
@@ -138,11 +154,16 @@ class DrawableElement {
 		x-=this.x;
 		y-=this.y;
 
+		let handleSize =CANVAS_ELEMENT_HANDLE_SIZE;
+
 		let teta = this.angle * Math.PI / 180;
         let rx = x * Math.cos(-teta) - y * Math.sin(-teta);
         let ry = x * Math.sin(-teta) + y * Math.cos(-teta);
 
-		return (rx>-this.width/2 && ry>-this.height/2 && rx<this.width/2 && ry < this.height/2);
+		let hitEl = (rx > -this.width/2 && ry > -this.height/2 && rx < this.width/2 && ry < this.height/2);
+		let hitHl = (rx > -handleSize/2 && ry > -this.height/2-handleSize*1.5 && rx< handleSize && ry < this.height/2);
+
+		return {ElementHitted:hitEl,HandleHitted:hitHl};
 	}
 
 	paint(){
