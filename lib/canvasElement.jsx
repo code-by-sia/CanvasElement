@@ -1,4 +1,5 @@
 const CANVAS_ELEMENT_HANDLE_SIZE=10;
+const CANVAS_ELEMENT_GRID_SIZE =10;
 
 class CanvasElement{
 	constructor(el){
@@ -111,17 +112,25 @@ class CanvasElement{
 	hitting(x,y,control,shift,alt,meta){
 		if(this.selected && this._hitTest){
 			let test = this._hitTest;
+			let selected = this.selected;
 			if (test.ElementHitted) {
-				this.selected.x = x + this.deltaX;
-				this.selected.y = y + this.deltaY;
+				selected.x = x + this.deltaX;
+				selected.y = y + this.deltaY;
 				this.repaint();				
 			}else if(test.HandleHitted){
-				let dx = x - this.selected.x;
-				let dy = y - this.selected.y;
+				let dx = x - selected.x;
+				let dy = y - selected.y;
 
 				let teta = Math.atan2(dy,dx) + Math.PI/2;
 				let tetaInDegree = teta * 180 / Math.PI;
-				this.selected.angle = tetaInDegree;
+				selected.angle = tetaInDegree;
+				this.repaint();
+			}
+
+			if(control){
+				selected.x = Math.floor(selected.x /CANVAS_ELEMENT_GRID_SIZE) * CANVAS_ELEMENT_GRID_SIZE;
+				selected.y = Math.floor(selected.y /CANVAS_ELEMENT_GRID_SIZE) * CANVAS_ELEMENT_GRID_SIZE;
+				selected.angle = Math.floor(selected.angle /CANVAS_ELEMENT_GRID_SIZE) * CANVAS_ELEMENT_GRID_SIZE;
 				this.repaint();
 			}
 		}
