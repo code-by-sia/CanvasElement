@@ -20,6 +20,14 @@ $(document).ready(function(){
 		canvasEl.repaint();
 	});
 
+	$('#btnSampleImg').click(function(){
+		var img = $('<img src="img/sample.jpg" />');
+		img.load(function(){
+			var m = new Picture(100,100,400,300,this);
+			canvasEl.insertElement(m);
+		});
+	});
+
 	$(el).mouseup(function (evt) {
 		var x = evt.offsetX || evt.layerX || (evt.clientX - el.offsetLeft);
         var y = evt.offsetY || evt.layerY || (evt.clientY - el.offsetTop);

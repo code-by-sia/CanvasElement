@@ -228,3 +228,18 @@ class Rectangle extends DrawableElement {
 			context.strokeRect(-this.width/2,-this.height/2,this.width,this.height);
 	}
 }
+
+
+class Picture extends DrawableElement {
+	constructor(x,y,w,h,image){
+		super(x,y,w,h,'','');
+		this.image =image;
+	}
+
+	paint(){
+		super.paint();
+		let context = this.painter.context;
+		if(this.image)
+			context.drawImage(this.image,-this.width/2,-this.height/2,this.width,this.height)
+	}
+}
