@@ -45,6 +45,14 @@ class CanvasElement{
 		this.selected=null;
 	}
 
+	resetContextStyles(){
+		let context = this.context;
+		context.fillStyle='';
+		context.strokeStyle='';
+		context.shadowBlur=0;
+		context.shadowColor='';
+	}
+
 	repaint(){
 		let context=this.context;
 
@@ -64,11 +72,16 @@ class CanvasElement{
 		context.clearRect(0, 0, this.width, this.height);
 		context.restore();
 		
-		this.EachElement(function (element) {
+		
+		for (var i = 0; i < this.elements.length; i++) {
+			let element = this.elements[i];
+
 			element.paint();
+			this.resetContextStyles();
 			if(element.selected)
 				element.paintHandle();
-		});
+			this.resetContextStyles();
+		}
 		
 		
 	}
@@ -163,6 +176,8 @@ class DrawableElement {
 		this.stroke=stroke;
 		this.selected = false;
 		this.angle = 0;
+		this.shadowBlur = 0;
+		this.shadowColor ='';
 	}
 
 	setPainter(painter){
@@ -193,7 +208,8 @@ class DrawableElement {
 		if(this.angle != 0)context.rotate(this.angle * Math.PI / 180);
 		context.fillStyle= this.fill;
 		context.strokeStyle= this.stroke;
-		
+		context.shadowBlur =  this.shadowBlur;
+		context.shadowColor =  this.shadowColor;
 	}
 
 	paintHandle(){

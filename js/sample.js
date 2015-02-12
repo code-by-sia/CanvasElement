@@ -38,6 +38,15 @@ $(document).ready(function(){
 			canvasEl.selected.sendToBack();
 	});
 
+	$('#btnAddShadow').click(function(){
+		if(canvasEl.selected)
+		{
+			canvasEl.selected.shadowBlur=15;
+			canvasEl.selected.shadowColor='#000';
+			canvasEl.repaint();
+		}
+	});
+
 	$(el).mouseup(function (evt) {
 		var x = evt.offsetX || evt.layerX || (evt.clientX - el.offsetLeft);
         var y = evt.offsetY || evt.layerY || (evt.clientY - el.offsetTop);
