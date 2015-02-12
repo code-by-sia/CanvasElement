@@ -28,6 +28,16 @@ $(document).ready(function(){
 		});
 	});
 
+	$('#btnBringToFront').click(function () {
+		if(canvasEl.selected)
+			canvasEl.selected.bringToFront();
+	});
+
+	$('#btnSendToBack').click(function () {
+		if(canvasEl.selected)
+			canvasEl.selected.sendToBack();
+	});
+
 	$(el).mouseup(function (evt) {
 		var x = evt.offsetX || evt.layerX || (evt.clientX - el.offsetLeft);
         var y = evt.offsetY || evt.layerY || (evt.clientY - el.offsetTop);
