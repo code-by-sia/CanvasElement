@@ -155,6 +155,8 @@ class CanvasElement{
 				selected.x = Math.floor(selected.x /CANVAS_ELEMENT_GRID_SIZE) * CANVAS_ELEMENT_GRID_SIZE;
 				selected.y = Math.floor(selected.y /CANVAS_ELEMENT_GRID_SIZE) * CANVAS_ELEMENT_GRID_SIZE;
 				selected.angle = Math.floor(selected.angle /CANVAS_ELEMENT_GRID_SIZE) * CANVAS_ELEMENT_GRID_SIZE;
+
+
 				this.repaint();
 			}
 		}
@@ -279,10 +281,13 @@ class Rectangle extends DrawableElement {
 	paint(){
 		super.paint();
 		let context = this.painter.context;
-		if(this.fill)
+		if(this.fill){
 			context.fillRect(-this.width/2,-this.height/2,this.width,this.height);
+			context.shadowBlur=0;
+		}
 		if(this.stroke)
 			context.strokeRect(-this.width/2,-this.height/2,this.width,this.height);
+		context.shadowBlur=0;
 	}
 }
 
