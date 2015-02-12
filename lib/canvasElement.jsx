@@ -1,3 +1,5 @@
+const CANVAS_ELEMENT_HANDLE_SIZE=10;
+
 class CanvasElement{
 	constructor(el){
 		this.canvas = el;
@@ -154,7 +156,7 @@ class DrawableElement {
 
 	paintHandle(){
 		let context = this.painter.context;
-		let handleSize=4;
+		let handleSize=CANVAS_ELEMENT_HANDLE_SIZE;
 		context.strokeStyle = 'rgba(0,0,0,.3)';
 		context.fillStyle = 'rgba(0,0,0,.8)';
 		context.strokeRect(-handleSize/2,-handleSize/2,this.width+handleSize,this.height+handleSize);
