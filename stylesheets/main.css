@@ -1,0 +1,8 @@
+#canvas_wrapper {
+	margin: 0 auto;
+	width: 600px;
+}
+#mycanvas {
+	border: solid 4px #eee;
+	background: #fff;
+}
